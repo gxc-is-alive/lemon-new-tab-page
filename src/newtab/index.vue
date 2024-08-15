@@ -96,6 +96,7 @@ watch(
       <div class="content-wrap">
         <WatchNetwork class="watch-network-wrap"></WatchNetwork>
         <quick-start v-if="settingsStore.enableQuickStart" class="quick-start-wrap" />
+        <WatchNetwork class="watch-network-wrap"></WatchNetwork>
       </div>
       <yi-yan />
     </main>
@@ -141,6 +142,7 @@ main {
   display: flex;
   .watch-network-wrap {
     margin-right: 20px;
+    margin-left: 20px;
   }
   .quick-start-wrap {
     flex-shrink: 0;
