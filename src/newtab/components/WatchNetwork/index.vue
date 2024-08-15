@@ -74,6 +74,7 @@ onMounted(() => {
       status: 'SERVICE_DEAD'
     }
   ]
+  checkList()
   setInterval(() => {
     checkList()
   }, 60 * 1000)
