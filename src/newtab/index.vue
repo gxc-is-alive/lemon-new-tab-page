@@ -13,6 +13,7 @@ import SearchBox from './components/SearchBox/index.vue'
 import SettingsPage from './components/SettingsPage/index.vue'
 import TimeNow from './components/TimeNow.vue'
 import YiYan from './components/YiYan.vue'
+import WatchNetwork from './components/WatchNetwork/index.vue'
 
 import changeTheme from './js/use-element-plus-theme'
 import changelog from './changelog'
@@ -92,7 +93,10 @@ watch(
     <main>
       <time-now />
       <search-box style="margin-top: 10px" />
-      <quick-start v-if="settingsStore.enableQuickStart" />
+      <div class="content-wrap">
+        <WatchNetwork class="watch-network-wrap"></WatchNetwork>
+        <quick-start v-if="settingsStore.enableQuickStart" class="quick-start-wrap" />
+      </div>
       <yi-yan />
     </main>
     <background :bgurl="bgURL" />
@@ -131,6 +135,15 @@ main {
     color: var(--el-color-primary);
     background-color: var(--el-bg-color);
     box-shadow: var(--el-box-shadow-lighter);
+  }
+}
+.content-wrap {
+  display: flex;
+  .watch-network-wrap {
+    margin-right: 20px;
+  }
+  .quick-start-wrap {
+    flex-shrink: 0;
   }
 }
 </style>
