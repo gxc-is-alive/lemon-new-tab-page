@@ -3,7 +3,12 @@
     <template #header>
       <div class="card-header">
         <span>监视器</span>
-        <el-icon @click="checkList">
+        <el-icon
+          @click="checkList"
+          :class="{
+            'is-loading': loadingFlag
+          }"
+        >
           <Refresh />
         </el-icon>
       </div>
@@ -40,6 +45,7 @@ interface WatchItem {
 }
 
 const watchList: Ref<WatchItem[]> = ref([])
+const loadingFlag: Ref<boolean> = ref(false)
 
 const { SERVER_STATUS_COLOR_MAP } = useConstant()
 
@@ -56,9 +62,13 @@ const checkItem = async (item: WatchItem): Promise<void> => {
 }
 
 const checkList = () => {
+  loadingFlag.value = true
   watchList.value.forEach((item) => {
     checkItem(item)
   })
+  setTimeout(() => {
+    loadingFlag.value = false
+  }, 500)
 }
 
 onMounted(() => {
@@ -70,7 +80,7 @@ onMounted(() => {
     },
     {
       name: '梯子',
-      url: 'https://www.google.com/',
+      url: 'https://github.com/',
       status: 'SERVICE_DEAD'
     }
   ]
@@ -91,7 +101,7 @@ onMounted(() => {
   border-radius: 10px;
   transition: all 0.2s cubic-bezier(0.65, 0.05, 0.1, 1);
   color: color-mix(in oklab, var(--el-text-color-primary), transparent 20%);
-  //   background-color: color-mix(in oklab, var(--el-bg-color), transparent 80%);
+  background-color: color-mix(in oklab, var(--el-bg-color), transparent 80%);
   box-shadow: var(--el-box-shadow-dark);
   .card-header {
     display: flex;
