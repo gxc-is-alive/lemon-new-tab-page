@@ -1,5 +1,11 @@
 <template>
-  <el-card style="max-width: 480px" class="wrap">
+  <el-card
+    style="max-width: 480px"
+    class="wrap"
+    :style="{
+      opacity: mounted ? (focusStore.isFocused ? '0' : '1') : '1'
+    }"
+  >
     <template #header>
       <div class="card-header">
         <span>监视器</span>
@@ -32,6 +38,7 @@ import type { Ref } from 'vue'
 import axios from 'axios'
 import { Refresh } from '@element-plus/icons-vue'
 import { useConstant } from '@/composables/useConstant'
+import { useFocusStore } from '@/newtab/js/store'
 
 const SERVICE_DEAD = 'SERVICE_DEAD'
 const SERVICE_ALIVE = 'SERVICE_ALIVE'
@@ -46,8 +53,9 @@ interface WatchItem {
 
 const watchList: Ref<WatchItem[]> = ref([])
 const loadingFlag: Ref<boolean> = ref(false)
-
+const mounted: Ref<boolean> = ref(false)
 const { SERVER_STATUS_COLOR_MAP } = useConstant()
+const focusStore = useFocusStore()
 
 const checkItem = async (item: WatchItem): Promise<void> => {
   if (!item.url) {
@@ -72,6 +80,7 @@ const checkList = () => {
 }
 
 onMounted(() => {
+  mounted.value = true
   watchList.value = [
     {
       name: 'NAS',
