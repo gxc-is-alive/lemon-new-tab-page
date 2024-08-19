@@ -14,6 +14,7 @@ import SettingsPage from './components/SettingsPage/index.vue'
 import TimeNow from './components/TimeNow.vue'
 import YiYan from './components/YiYan.vue'
 import WatchNetwork from './components/WatchNetwork/index.vue'
+import EyeProtection from './components/EyeProtection.vue'
 
 import changeTheme from './js/use-element-plus-theme'
 import changelog from './changelog'
@@ -92,6 +93,7 @@ watch(
   <el-config-provider :locale="zhCn">
     <main>
       <time-now />
+      <EyeProtection></EyeProtection>
       <search-box style="margin-top: 10px" />
       <div class="content-wrap">
         <WatchNetwork class="watch-network-wrap"></WatchNetwork>

@@ -39,6 +39,7 @@ import axios from 'axios'
 import { Refresh } from '@element-plus/icons-vue'
 import { useConstant } from '@/composables/useConstant'
 import { useFocusStore } from '@/newtab/js/store'
+import { SendNotification } from '@/composables/useNotification'
 
 const SERVICE_DEAD = 'SERVICE_DEAD'
 const SERVICE_ALIVE = 'SERVICE_ALIVE'
@@ -65,6 +66,11 @@ const checkItem = async (item: WatchItem): Promise<void> => {
     await axios.get(item.url)
     item.status = 'SERVICE_ALIVE'
   } catch (error) {
+    if (item.status === 'SERVICE_ALIVE') {
+      SendNotification({
+        message: `${item.name}服务挂掉了`
+      })
+    }
     item.status = 'SERVICE_DEAD'
   }
 }
@@ -81,6 +87,7 @@ const checkList = () => {
 
 onMounted(() => {
   mounted.value = true
+
   watchList.value = [
     {
       name: 'NAS',
